@@ -12,8 +12,7 @@ for l in array_links:
     text = trafilatura.extract(html)
     text_clean = text.replace("\n", " ").replace("\'", "")
     array_text.append(text_clean[0:5000])
-
-from summa import keywords
+from pytopicrank import TopicRank
 for j in range(len(array_text)):
-    print("Keywords of article", str(j+1), "\n", (keywords.keywords(array_text[j], words=5)).split("\n"))
-
+    tr = TopicRank(array_text[j])
+    print("Keywords of article", str(j+1), "\n", tr.get_top_n(n=5, extract_strategy='first'))
